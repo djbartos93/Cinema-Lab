@@ -29,10 +29,10 @@ all of this can be done via a web interface if you so choose.
 
 
 #TO DO:
-[ ] - Web interface
-[ ] - Philips hue integration
-[ ] - Power sequencing system
-[ ] - Take GPIO signals and make them do a thing.
+- [ ] Web interface
+- [ ] Philips hue integration
+- [ ] Power sequencing system
+- [ ] Take GPIO signals and make them do a thing.
 
 ##Notes:
 Currently this is being programmed without access to a raspberry pi, so all of the GPIO feature will need to be tested before final implementation
