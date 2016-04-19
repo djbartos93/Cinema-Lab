@@ -99,18 +99,7 @@ def dlay_off
   puts "System OFF"
 end
 
-begin
-  io = WiringPi::GPIO.new do |gpio|
-  gpio.pin_mode(9, WiringPi::INPUT)
-  pin_state = io.digital_read(9)
-  puts pin_state
-end if io.pin_state == high do
-  delay_on
-end
-if io.pin_state == low do
-  delay_off
-end
-end
+
 
 
 
