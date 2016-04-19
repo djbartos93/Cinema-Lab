@@ -19,7 +19,7 @@ gem 'volt-user_templates', '~> 0.4.0'
 gem 'volt-mailer', '~> 0.1.1'
 
 #raspberry pi gpio
-gem 'pi_piper'
+gem 'wiringpi2'
 
 # Use rbnacl for message bus encrpytion
 # (optional, if you don't need encryption, disable in app.rb and remove)
