@@ -2,9 +2,7 @@ class ControlTask < Volt::Task
 
 Delay_Time = 2
 
-io = WiringPi::GPIO.new do |gpio|
-  gpio.pin_mode(0, WiringPi::OUTPUT)
-end
+
 
 
   def power(status)
@@ -17,6 +15,9 @@ end
     end
   end
 def delay_on
+  io = WiringPi::GPIO.new do |gpio|
+    gpio.pin_mode(0, WiringPi::OUTPUT)
+  end
   io.digital_write(0, WiringPi::HIGH)
   puts "circuit 1 ON"
   sleep(Delay_Time)
