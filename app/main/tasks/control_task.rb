@@ -1,10 +1,4 @@
-require 'sinatra'
-require 'wiringpi2'
-require 'bundler'
-
-Bundler.setup
-Bundler.require
-
+class ControlTask < Volt::Task
 
 Delay_Time = 2
 
@@ -120,10 +114,6 @@ end
 
 
 
-###############Web Interface##############
 
-get '/' do
-  puts "tets"
-  @system_on = delay_on
-  erb :index
+
 end
