@@ -69,7 +69,7 @@ def delay_on
 
 end
 
-def dlay_off
+def delay_off
   io = WiringPi::GPIO.new do |gpio|
     gpio.pin_mode(0, WiringPi::OUTPUT)
     gpio.pin_mode(1, WiringPi::OUTPUT)
