@@ -1,13 +1,24 @@
 class ControlTask < Volt::Task
 
-Delay_Time = 2
+Delay_Time = 0
 
+def show_stats
 
+      {
+      ruby_version:     RUBY_VERSION, # note that these are constants always available in Ruby
+      ruby_description: "something #{@systemstatus}",
+      ruby_platform:    RUBY_PLATFORM
+    }
+end
 
+def pwrstatus
+  print @systemstatus
+end
 
   def power(status)
     if status == "on"
       puts "the power is now on"
+        @systemstatus = "FUCK yourself"
       delay_on
     end
     if status == "off"
@@ -55,6 +66,7 @@ def delay_on
   puts "circuit 9 ON"
   sleep(1)
   puts "System ON"
+
 end
 
 def dlay_off
@@ -96,6 +108,7 @@ def dlay_off
   io.digital_write(0, WiringPi::LOW)
   puts "Circuit 1 OFF"
   sleep(1)
+  @systemstatus = "OFF"
   puts "System OFF"
 end
 

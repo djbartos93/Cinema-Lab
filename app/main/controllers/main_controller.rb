@@ -3,6 +3,13 @@ module Main
   class MainController < Volt::ModelController
     def index
       # Add code for when the index view is loaded
+      ControlTask.show_stats
+        .then do |stats|
+          page._info = stats
+        end.fail do |error|
+          page._info = error
+        end
+
     end
 
     def about
