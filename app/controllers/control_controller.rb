@@ -5,9 +5,10 @@ class ControlController < ApplicationController
   @Control = Control.all
   @control = Control.new
   puts "#{Control.power}"
-   Thread.new do
-      check_status
-    end
+  puts "Prevent #{@prevent_loop}"
+#   Thread.new do
+#      check_status
+#    end
   end
   def create
     @control = Control.new(control_params)
@@ -31,6 +32,9 @@ class ControlController < ApplicationController
   def update
     @controls.update_attributes(control_params)
     redirect_to :action => 'index'
+    Thread.new do
+       check_status
+     end
   end
 
   def check_status
@@ -39,7 +43,7 @@ class ControlController < ApplicationController
         Thread.new do
           power_on
         end
-      elsif Control.power == "off"
+      elsif Control.power == "off" and @prevent_loop == "0"
         print "System is off"
         Thread.new do
           power_off
@@ -47,11 +51,18 @@ class ControlController < ApplicationController
       end
   end
 
+  def testing_status
+    loop do
+      @gpio_status = "#{Control.power}"
+      print @gpio_status
+      sleep(2)
+    end
+  end
 
-  private
   Delay_Time = 1
 
   def power_on
+    @prevent_loop = "on"
     #  io = WiringPi::GPIO.new do |gpio|
     #    gpio.pin_mode(0, WiringPi::OUTPUT)
     #    gpio.pin_mode(1, WiringPi::OUTPUT)
@@ -94,8 +105,8 @@ class ControlController < ApplicationController
 
   end
 
-
   def power_off
+      prevent_loop = "0"
       #io = WiringPi::GPIO.new do |gpio|
       #  gpio.pin_mode(0, WiringPi::OUTPUT)
       #  gpio.pin_mode(1, WiringPi::OUTPUT)
@@ -136,6 +147,9 @@ class ControlController < ApplicationController
       sleep(1)
       puts "System OFF"
   end
+
+private
+
 
   def control_params
     params.require(:control).permit(:value, :key)
