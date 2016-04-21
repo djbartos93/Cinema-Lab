@@ -24,3 +24,4 @@ module ControlHelper
       end
     end
   end
+end
