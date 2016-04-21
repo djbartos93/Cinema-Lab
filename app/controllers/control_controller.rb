@@ -5,7 +5,7 @@ class ControlController < ApplicationController
   @Control = Control.all
   @control = Control.new
   puts "#{Control.power}"
-  puts "Prevent #{@prevent_loop}"
+  @prevent_loop = "1"
 #   Thread.new do
 #      check_status
 #    end
@@ -41,11 +41,13 @@ class ControlController < ApplicationController
       if Control.power == "on"
         print "System is on"
         Thread.new do
+          @prevent_loop = "1"
           power_on
         end
-      elsif Control.power == "off" and @prevent_loop == "0"
+      elsif Control.power == "off"
         print "System is off"
         Thread.new do
+          @prevent_loop = "0"
           power_off
         end
       end
@@ -53,16 +55,14 @@ class ControlController < ApplicationController
 
   def testing_status
     loop do
-      @gpio_status = "#{Control.power}"
-      print @gpio_status
-      sleep(2)
+      if Control.power == "on"
     end
   end
 
   Delay_Time = 1
 
   def power_on
-    @prevent_loop = "on"
+    puts @prevent_loop
     #  io = WiringPi::GPIO.new do |gpio|
     #    gpio.pin_mode(0, WiringPi::OUTPUT)
     #    gpio.pin_mode(1, WiringPi::OUTPUT)
@@ -106,7 +106,7 @@ class ControlController < ApplicationController
   end
 
   def power_off
-      prevent_loop = "0"
+      puts @prevent_loop
       #io = WiringPi::GPIO.new do |gpio|
       #  gpio.pin_mode(0, WiringPi::OUTPUT)
       #  gpio.pin_mode(1, WiringPi::OUTPUT)
